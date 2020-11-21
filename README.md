@@ -1,7 +1,7 @@
 # conda cheatsheet
 https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf
 
-# sklearn 
+# sklearn - tabular data machine learning
 
 ```py
 import sklearn
@@ -19,7 +19,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.metrics import absolute_mean_error
 from sklearn.model_selection import cross_val_score
-from sklearn.metrics import roc_curve
+## binary metrics
+from sklearn.metrics import roc_curve # fpr, tpr, thresholds = roc_curve(y_test, y_probs_positive)
 from sklearn.metrics import roc_auc_score # gives area under the roc_curve.
 
 # regression metrics
