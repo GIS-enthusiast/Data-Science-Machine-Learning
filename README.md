@@ -1,3 +1,6 @@
+# conda cheatsheet
+https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf
+
 # sklearn 
 
 ```py
@@ -12,8 +15,17 @@ from sklearn.svm import LinearSVC
 
 from sklearn.model_selection import train_test_split
 
+# classification metrics
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn.metrics import absolute_mean_error
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import roc_curve
+from sklearn.metrics import roc_auc_score # gives area under the roc_curve.
 
+# regression metrics
+
+
+# preprocessing
 from sklearn.preprocessing import OneHotEncoder
 pd.get_dummies()
 from sklearn.compose import ColumnTransformer
@@ -23,11 +35,13 @@ imputer.transform()
 
 np.random.seed(42)
 
+# create data
 df.pop()
 df.drop('column', axis=1)
 df.isna().sum()
 df.dropna(inplace=True)
 
+# model attributes
 model.get_params()
 model.fit()
 model.predict()
@@ -36,7 +50,27 @@ model.score()
 
 df.shape
 
-# 5  improve a model 
+
+# import matplotlib.pyplot as plt
+
+def plot_roc_curve(fpr, tpr):
+    '''
+    Plots a roc curve given the false positive rate (fpr) and the true positive rate (tpr) of model.
+    '''
+    # plot the roc curve
+    plt.plot(fpr, tpr, color="orange", label="ROC")
+    # plot line with no predictive power (baseline)
+    plt.plot([0, 1], [0, 1], color="darkblue", linestyle="--", label="Guessing")
+    #custimise the plot 
+    plt.xlabel("False Positive Rate (fpr)")
+    plt.ylabel("True Positive Rate (tpr)")
+    plt.title("Receiver Operating Characteristics (ROC) Curve")
+    plt.legend()
+    plt.show()
+
+
+
+# improve a model 
 ## try different hyperparameters
 np.random.seed(42)
 for i in range(10, 100, 10):
@@ -45,7 +79,7 @@ for i in range(10, 100, 10):
     print(f"Model accuracy on test set: {clf.score(x_test, y_test) *100:.2f}%")
     print("")
     
-# 6 save a module and load it
+# save a module and load it
 import pickle
 
 pickle.dump(clf, open("random_forest_model_1.pk1", "wb"))
