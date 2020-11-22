@@ -2,8 +2,13 @@
 https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf
 
 ## setting up the conda environment
-yml file provided.
+COMPLETE THIS SECTION.
 
+## Tip to download a library using conda in a Jupyter Notebook.
+```py
+import sys
+#!conda install --yes --prefix {sys.prefix} <module>
+```
 # sklearn - tabular data machine learning
 
 ```py
@@ -25,6 +30,9 @@ from sklearn.model_selection import cross_val_score
 ## binary metrics
 from sklearn.metrics import roc_curve # fpr, tpr, thresholds = roc_curve(y_test, y_probs_positive)
 from sklearn.metrics import roc_auc_score # gives area under the roc_curve.
+from sklearn.metrics import confusion_matrix
+# note that from sklearn.metrics import plot_confusion_matrix is not working at the moment. Two engineered solutions are provided below in graphs section.
+from sklearn.metrics import classification_report
 
 # regression metrics
 
@@ -54,9 +62,10 @@ model.score()
 
 df.shape
 
+## Graphs
 
+#1. ROC curve
 # import matplotlib.pyplot as plt
-
 def plot_roc_curve(fpr, tpr):
     '''
     Plots a roc curve given the false positive rate (fpr) and the true positive rate (tpr) of model.
@@ -71,6 +80,37 @@ def plot_roc_curve(fpr, tpr):
     plt.title("Receiver Operating Characteristics (ROC) Curve")
     plt.legend()
     plt.show()
+
+#2a. Confusion Matric
+# visualise confustion matrix with pd.crosstab()
+pd.crosstab(y_test,
+           y_preds,
+           rownames=['Actual Labels'],
+           colnames=['Predicted Labels'])
+           
+#2b. Confusion Matric
+# Or make the confustion matrix more visual with seaborn heatmap
+import seaborn as sns
+
+# Set the font scale
+sns.set(font_scale=1.5)
+
+# Create a confusion matrix
+conf_mat = confusion_matrix(y_test, y_preds)
+
+def plot_conf_mat(conf_mat):
+    '''
+    Plots a confustion matrix using seaborns heatmap()
+    '''
+    fig, ax = plt.subplots(figsize=(3,3))
+    ax = sns.heatmap(conf_mat, 
+                    annot=True,
+                    cbar=False) # annotate the boxes with conf_mat info
+    
+    plt.xlabel("Predicted Label")
+    plt.ylabel("True Label")
+
+plot_conf_mat(conf_mat)
 
 
 
