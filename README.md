@@ -3,6 +3,7 @@ https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a34848
 
 # sklearn - tabular data machine learning
 
+testing git.
 ```py
 import sklearn
 sklearn.show_versions()
