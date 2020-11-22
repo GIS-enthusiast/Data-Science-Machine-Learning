@@ -23,6 +23,7 @@ from sklearn.svm import LinearSVC
 
 from sklearn.model_selection import train_test_split
 
+# Metrics documentation: https://scikit-learn.org/stable/modules/model_evaluation.html
 # classification metrics
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.metrics import absolute_mean_error
