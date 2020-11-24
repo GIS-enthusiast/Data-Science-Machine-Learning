@@ -10,7 +10,7 @@ import sys
 #!conda install --yes --prefix {sys.prefix} <module>
 ```
 # sklearn - tabular data machine learning
-
+## Common models and functions
 ```py
 import sklearn
 sklearn.show_versions()
@@ -66,9 +66,9 @@ model.predict_proba()
 model.score()
 
 df.shape
-
-## Graphs
-
+```
+## matplotlib.pyplot Graph functions for Metrics
+```py
 #1. ROC curve
 # import matplotlib.pyplot as plt
 def plot_roc_curve(fpr, tpr):
@@ -86,7 +86,7 @@ def plot_roc_curve(fpr, tpr):
     plt.legend()
     plt.show()
 
-#2a. Confusion Matric
+#2a. Confusion Matrix
 # visualise confustion matrix with pd.crosstab()
 pd.crosstab(y_test,
            y_preds,
@@ -154,7 +154,6 @@ def evaluate_preds(y_true, y_preds):
     return metric_dict
 
 
-
 # improve a model 
 ## try different hyperparameters
 np.random.seed(42)
@@ -163,8 +162,10 @@ for i in range(10, 100, 10):
     clf = RandomForestClassifier(i).fit(x_train, y_train)
     print(f"Model accuracy on test set: {clf.score(x_test, y_test) *100:.2f}%")
     print("")
-    
-# save a module and load it
+```
+## Exporting and Importing a Model/Classifier/Algorithm
+```py
+#save a module and load it
 import pickle
 
 pickle.dump(clf, open("random_forest_model_1.pk1", "wb"))
