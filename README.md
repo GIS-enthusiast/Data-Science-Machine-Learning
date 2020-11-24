@@ -39,7 +39,7 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import r2_score
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_squared_error
-
+from sklearn.model_selection import cross_val_score
 
 # preprocessing
 from sklearn.preprocessing import OneHotEncoder
