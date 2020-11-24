@@ -36,7 +36,9 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 
 # regression metrics
-COMPLETE.
+from sklearn.metrics import r2_score
+from sklearn.metrics import mean_absolute_error
+
 
 # preprocessing
 from sklearn.preprocessing import OneHotEncoder
