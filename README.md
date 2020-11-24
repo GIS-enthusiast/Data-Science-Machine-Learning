@@ -40,6 +40,7 @@ from sklearn.metrics import r2_score
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import cross_val_score
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 
 # preprocessing
 from sklearn.preprocessing import OneHotEncoder
@@ -115,6 +116,28 @@ def plot_conf_mat(conf_mat):
     plt.ylabel("True Label")
 
 plot_conf_mat(conf_mat)
+
+## Tuning Hyperparameters: Function to return evaluation metrics.
+
+def evaluate_preds(y_true, y_preds):
+    '''
+    Perfoms evaluation comparison on y_true labels vs. y_preds labels on a classification.
+    '''
+    accuracy = accuracy(y_true, y_preds)
+    precision = precision_score(y_true, y_preds)
+    recall = recall_score(y_true, y_preds)
+    f1 = f1_score(y_true, y_preds)
+    metric_dict = {"accuracy": round(accuracy, 2), 
+                   "precision": round(precision, 2),
+                  "recall": round(recall, 2),
+                  "f1": round(f1, 2)
+                  }
+    print(f'Acc: {accuracy * 100:.2f}%')
+    print(f'Precision: {precision * 100:.2f}')
+    print(f'Recall: {recall * 100:.2f}')
+    print(f'F1: {f1 * 100:.2f}')
+    
+    return metric_dict
 
 
 
