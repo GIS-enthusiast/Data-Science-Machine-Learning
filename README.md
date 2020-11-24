@@ -38,6 +38,7 @@ from sklearn.metrics import classification_report
 # regression metrics
 from sklearn.metrics import r2_score
 from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
 
 
 # preprocessing
