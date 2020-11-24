@@ -116,9 +116,23 @@ def plot_conf_mat(conf_mat):
     plt.ylabel("True Label")
 
 plot_conf_mat(conf_mat)
-
+```
 ## Tuning Hyperparameters: Function to return evaluation metrics.
+```py
 
+from sklearn.model_selection import RandomizedSearchCV
+
+example_grid = {"n_estimators": [10, 100, 200, 500, 1000, 1200], 
+        "max_depth": [None, 5, 10, 20, 30], 
+        "max_features":['auto', 'sqrt'], 
+       "min_samples_split": [2, 4, 6],
+       "min_samples_leaf": [1, 2, 4]}
+
+# identify best parameters
+rs_model.best_params_
+
+
+       
 def evaluate_preds(y_true, y_preds):
     '''
     Perfoms evaluation comparison on y_true labels vs. y_preds labels on a classification.
