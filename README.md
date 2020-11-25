@@ -9,8 +9,11 @@ Terminal: conda create --prefix ./env pandas numpy matplotlib scikit-learn
 import sys
 #!conda install --yes --prefix {sys.prefix} <module>
 ```
+## Good example for tuning hyperparameters
+https://colab.research.google.com/drive/1ISey96a5Ag6z2CvVZKVqTKNWRwZbZl0m#scrollTo=sSoaPfQFoh1t
+
 # sklearn - tabular data machine learning
-## Common models and functions
+## Common classes and functions
 ```py
 import sklearn
 sklearn.show_versions()
@@ -117,10 +120,11 @@ def plot_conf_mat(conf_mat):
 
 plot_conf_mat(conf_mat)
 ```
-## Tuning Hyperparameters: Function to return evaluation metrics.
+## Tuning Hyperparameters: RandomizedSearchCV and GridSearchCV
 ```py
 
 from sklearn.model_selection import RandomizedSearchCV
+from sklearn.model_selection import GridSearchCV, train_test_split
 
 example_grid = {"n_estimators": [10, 100, 200, 500, 1000, 1200], 
         "max_depth": [None, 5, 10, 20, 30], 
@@ -147,9 +151,9 @@ def evaluate_preds(y_true, y_preds):
                   "f1": round(f1, 2)
                   }
     print(f'Acc: {accuracy * 100:.2f}%')
-    print(f'Precision: {precision * 100:.2f}')
-    print(f'Recall: {recall * 100:.2f}')
-    print(f'F1: {f1 * 100:.2f}')
+    print(f'Precision: {precision:.2f}')
+    print(f'Recall: {recall:.2f}')
+    print(f'F1: {f1:.2f}')
     
     return metric_dict
 
@@ -164,6 +168,7 @@ for i in range(10, 100, 10):
     print("")
 ```
 ## Exporting and Importing a Model/Classifier/Algorithm
+1. Pickle
 ```py
 #save a module and load it
 import pickle
@@ -172,8 +177,19 @@ pickle.dump(clf, open("random_forest_model_1.pk1", "wb"))
 
 loaded_model = pickle.load(open("random_forest_model_1.pk1", "rb"))
 loaded_model.score(x_test, y_test) 
+```
+2. Joblib
+```py
+from joblib import dump, load
 
-### Helpful Pandas functions
+# Save model to file
+dump(gs_model, filename="random_forest_model_1.joblib")
+
+# Import a saved joblib model
+loaded_job_model = load(filename="random_forest_model_1.joblib")
+```
+## Helpful Pandas functions
+```py
 #shuffle the data
 heart_disease_shuffled = heart_disease.sample(frac=1)
 
