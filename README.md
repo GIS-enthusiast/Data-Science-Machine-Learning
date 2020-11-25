@@ -2,7 +2,7 @@
 https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf
 
 ## setting up the conda environment
-COMPLETE THIS SECTION.
+Terminal: conda create --prefix ./env pandas numpy matplotlib scikit-learn
 
 ## Tip to download a library using conda in a Jupyter Notebook.
 ```py
