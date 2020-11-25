@@ -225,6 +225,21 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 # Fit and score the model
 model.fit(X_train, y_train)
 model.score(X_test, y_test)
+
+## NEXT CELL
+
+# Use gridsearch CV with pipeline to improve the model
+pipe_grid = {
+    "preprocessor__num__imputer__strategy": ["mean", "median"],
+    "model__n_estimators" : [100, 1000],
+    "model__max_depth": [None, 5],
+    "model__max_features": ["auto"],
+    "model__min_samples_split": [2, 4]
+}
+
+gs_model = GridSearchCV(model, pipe_grid, cv=5, verbose=2)
+gs_model.fit(X_train, y_train)
+gs_model.score(X_test, y_test)
 ```
 ## Exporting and Importing a Model/Classifier/Algorithm
 1. Pickle
