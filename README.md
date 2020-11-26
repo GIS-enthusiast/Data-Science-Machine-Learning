@@ -70,56 +70,7 @@ model.predict_proba()
 model.score()
 
 df.shape
-```
-## matplotlib.pyplot Graph functions for Metrics
-```py
-#1. ROC curve
-# import matplotlib.pyplot as plt
-def plot_roc_curve(fpr, tpr):
-    '''
-    Plots a roc curve given the false positive rate (fpr) and the true positive rate (tpr) of model.
-    '''
-    # plot the roc curve
-    plt.plot(fpr, tpr, color="orange", label="ROC")
-    # plot line with no predictive power (baseline)
-    plt.plot([0, 1], [0, 1], color="darkblue", linestyle="--", label="Guessing")
-    #custimise the plot 
-    plt.xlabel("False Positive Rate (fpr)")
-    plt.ylabel("True Positive Rate (tpr)")
-    plt.title("Receiver Operating Characteristics (ROC) Curve")
-    plt.legend()
-    plt.show()
 
-#2a. Confusion Matrix
-# visualise confustion matrix with pd.crosstab()
-pd.crosstab(y_test,
-           y_preds,
-           rownames=['Actual Labels'],
-           colnames=['Predicted Labels'])
-           
-#2b. Confusion Matric
-# Or make the confustion matrix more visual with seaborn heatmap
-import seaborn as sns
-
-# Set the font scale
-sns.set(font_scale=1.5)
-
-# Create a confusion matrix
-conf_mat = confusion_matrix(y_test, y_preds)
-
-def plot_conf_mat(conf_mat):
-    '''
-    Plots a confustion matrix using seaborns heatmap()
-    '''
-    fig, ax = plt.subplots(figsize=(3,3))
-    ax = sns.heatmap(conf_mat, 
-                    annot=True,
-                    cbar=False) # annotate the boxes with conf_mat info
-    
-    plt.xlabel("Predicted Label")
-    plt.ylabel("True Label")
-
-plot_conf_mat(conf_mat)
 ```
 ## Tuning Hyperparameters: RandomizedSearchCV and GridSearchCV
 ```py
@@ -273,4 +224,110 @@ pd.crosstab(df.target, df.sex) # column names 'target' and 'sex'.
 
 # Make a correlation matrix
 df.corr()
+# Make a correlation matrix more readable
+fig, ax = plt.subplots(figsize=(15, 10))
+ax = sns.heatmap(corr_matrix, 
+                 annot=True, 
+                 linewidths=0.5, 
+                 fmt=".2f",
+                cmap="icefire")
+```
+## matplotlib.pyplot Graph functions for EDA and Metrics
+```py
+#1. ROC curve
+# import matplotlib.pyplot as plt
+def plot_roc_curve(fpr, tpr):
+    '''
+    Plots a roc curve given the false positive rate (fpr) and the true positive rate (tpr) of model.
+    '''
+    # plot the roc curve
+    plt.plot(fpr, tpr, color="orange", label="ROC")
+    # plot line with no predictive power (baseline)
+    plt.plot([0, 1], [0, 1], color="darkblue", linestyle="--", label="Guessing")
+    #custimise the plot 
+    plt.xlabel("False Positive Rate (fpr)")
+    plt.ylabel("True Positive Rate (tpr)")
+    plt.title("Receiver Operating Characteristics (ROC) Curve")
+    plt.legend()
+    plt.show()
+
+#2a. Confusion Matrix
+# visualise confustion matrix with pd.crosstab()
+pd.crosstab(y_test,
+           y_preds,
+           rownames=['Actual Labels'],
+           colnames=['Predicted Labels'])
+           
+#2b. Confusion Matric
+# Or make the confustion matrix more visual with seaborn heatmap
+import seaborn as sns
+
+# Set the font scale
+sns.set(font_scale=1.5)
+
+# Create a confusion matrix
+conf_mat = confusion_matrix(y_test, y_preds)
+
+def plot_conf_mat(conf_mat):
+    '''
+    Plots a confustion matrix using seaborns heatmap()
+    '''
+    fig, ax = plt.subplots(figsize=(3,3))
+    ax = sns.heatmap(conf_mat, 
+                    annot=True,
+                    cbar=False) # annotate the boxes with conf_mat info
+    
+    plt.xlabel("Predicted Label")
+    plt.ylabel("True Label")
+
+plot_conf_mat(conf_mat)
+
+# Scatter Plot, EDA
+plt.figure(figsize=(10, 6))
+
+# scatter with positive examples (ie with heart disease)
+plt.scatter(df.age[df.target==1],
+           df.thalach[df.target==1],
+           color="salmon")
+
+# scatter with negative examples (no heart disease)
+plt.scatter(df.age[df.target==0],
+           df.thalach[df.target==0],
+           color="lightblue")
+
+plt.title("Heart Disease as a function of Age and Max Heart Rate")
+plt.xlabel("Age")
+plt.ylabel("Max Heart Rate")
+plt.legend(["Disease", "No Disease"])
+```
+## Function to fit and score models
+```py
+# put models in dict to create function
+
+models = {"Logistic Regression": LogisticRegression(),
+         "KNN": KNeighborsClassifier(),
+         "Random Forest": RandomForestClassifier()}
+
+# create function to fit and score models
+
+def fit_and_score(models, X_train, y_train, X_test, y_test):
+    '''
+    Fits and evaluates given machine learning models.
+    models: a dict of machine learning models
+    X_train: training data no labels
+    X_test: testing data no labels
+    y_train: training labels
+    y_test: test labels
+    '''
+    #set random seed
+    np.random.seed(42)
+    # make dict to record model scores
+    model_scores = {}
+    # loop through models
+    for name, model in models.items():
+        # fit model to data
+        model.fit(X_train, y_train)
+        # evaluate model and append scores to model_scores
+        model_scores[name] = model.score(X_test, y_test)
+    return model_scores
 ```
