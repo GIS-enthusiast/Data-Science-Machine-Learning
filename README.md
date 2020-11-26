@@ -232,6 +232,11 @@ ax = sns.heatmap(corr_matrix,
                  fmt=".2f",
                 cmap="icefire")
 ```
+## Helpful Numpy functions
+```py
+np.logspace(-4, 4, 20)
+np.arange(10, 1000, 50) #faster than python range()
+```
 ## matplotlib.pyplot Graph functions for EDA and Metrics
 ```py
 #1. ROC curve
