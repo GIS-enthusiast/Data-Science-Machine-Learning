@@ -270,4 +270,7 @@ heart_disease_shuffled = heart_disease.sample(frac=1)
 
 # compare colums with crosstab
 pd.crosstab(df.target, df.sex) # column names 'target' and 'sex'.
+
+# Make a correlation matrix
+df.corr()
 ```
