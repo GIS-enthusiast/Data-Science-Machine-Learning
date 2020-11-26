@@ -237,6 +237,12 @@ ax = sns.heatmap(corr_matrix,
 np.logspace(-4, 4, 20)
 np.arange(10, 1000, 50) #faster than python range()
 ```
+## Other helpful EDA functions
+```py
+# super quick and helpful visualisation for missing data.
+import missingno as msno
+msno.bar(df)
+```
 ## matplotlib.pyplot Graph functions for EDA and Metrics
 ```py
 #1. ROC curve
