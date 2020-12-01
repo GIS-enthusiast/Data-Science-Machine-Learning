@@ -4,6 +4,7 @@ https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a34848
 ## setting up the conda environment
 1. First time (in terminal): conda create --prefix ./env pandas numpy matplotlib scikit-learn
 2. Or import yml file: conda create --prefix ./env environment.yml (having exported a yml file to the same directory, eg. conda export env > environment.yml)
+3.
 
 ## Tip to download a library using conda in a Jupyter Notebook.
 ```py
